@@ -5,6 +5,6 @@
 <resources>
     <string name="app_name">My Library</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="library_hello_world">Library Hello world!</string>
+    <string name="library_action_settings">Settings</string>
 </resources>

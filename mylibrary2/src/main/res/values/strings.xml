@@ -4,4 +4,9 @@
 
 <resources>
     <string name="app_name">My Library</string>
+    <string name="library2_app_name">My Library</string>
+    <string name="title_activity_main_library2">MainLibrary2Activity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
