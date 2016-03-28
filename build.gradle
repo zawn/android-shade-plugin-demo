@@ -5,7 +5,7 @@ defaultTasks 'assembleRelease'
 buildscript {
     repositories {
         maven {
-            url "E:/IdeaProjects/android-gradle-plugin/repo"
+            url project.getRootDir().getPath() + "/repo"
         }
         maven {
             url "E:/OpenSource/android-shade-plugin-buildSrc/buildSrc/repo"
@@ -17,7 +17,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-alpha7'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta7'
         classpath 'com.netflix.nebula:gradle-info-plugin:2.2.4'
         classpath 'com.house365.build:android-shade-plugin:2.0.0-beta7'
 
