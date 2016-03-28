@@ -8,6 +8,10 @@ buildscript {
             url "E:/IdeaProjects/android-gradle-plugin/repo"
         }
         maven {
+            url "E:/OpenSource/android-shade-plugin-buildSrc/buildSrc/repo"
+        }
+        mavenLocal()
+        maven {
             url "http://192.168.108.60/nexus/content/groups/public/"
         }
         jcenter()
@@ -15,6 +19,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-alpha7'
         classpath 'com.netflix.nebula:gradle-info-plugin:2.2.4'
+        classpath 'com.house365.build:android-shade-plugin:2.0.0-beta7'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -42,6 +47,11 @@ allprojects {
         jcenter()
 
     }
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+
 }
 
 task clean(type: Delete) {
