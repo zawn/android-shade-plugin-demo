@@ -1,12 +1,14 @@
 # android-shade-plugin
 
+[ ![Download](https://api.bintray.com/packages/zhangzhenli/maven/android-shade-plugin/images/download.svg) ](https://bintray.com/zhangzhenli/maven/android-shade-plugin/_latestVersion)
+
 用于合并Gradle Android Library中的依赖至AAR文件的classes.jar.类似于Maven Shade Plugin. 
 
 类似项目:https://github.com/johnrengelman/shadow (该插件暂时不支持Android,2016年1月13日)
 
 ## 说明
-
-该插件使用了Transform API,参见:http://tools.android.com/tech-docs/new-build-system/transform-api ,要求Android Gradle Plugin插件版本不低于1.5.0
+需配合相应版本的Android Gradle插件使用.
+该插件使用了Transform API,参见:http://tools.android.com/tech-docs/new-build-system/transform-api ,要求Android Gradle Plugin插件版本不低于2.0.0
 
 
 ## 使用
@@ -23,7 +25,7 @@
             jcenter()
         }
         dependencies {
-            classpath 'com.house365.build:android-shade-plugin:1.5.0'
+            classpath 'com.house365.build:android-shade-plugin:2.0.0-beta7'
         }
     }
     
