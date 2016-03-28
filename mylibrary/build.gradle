@@ -36,7 +36,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,6 +52,15 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
         exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+    }
+
+    splits {
+        abi {
+            enable false
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
+        }
     }
 
 //    LinkedHashMap<String, LinkedHashMap<String, String>> buildVariants = VariantsUtil.readVariantsFromFile(project)
@@ -75,5 +84,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.code.gson:gson:2.4'
     shade 'com.squareup.okhttp:okhttp:2.4.0-RC1'
-    compile 'com.house365.lib:zxing-android-embedded:0.0.4'
+    shade 'com.house365.lib:zxing-android-embedded:0.0.4'
+    shade 'com.tencent.bugly:crashreport:latest.release'
 }
