@@ -2,7 +2,7 @@
  * 用于在构建基于Gradle的Android Application/Library时,向APK/AAR中添加构建信息,打包JavaDoc,JavaSource,
  * ProgruardMapping,并向Maven仓库提交.
  * 注:为提高开发效率,仅当构建过程满足isExpectBuild()方法的判定条件时,上述过程才会执行.
- * 
+ *
  * 使用方法,在build.gradle中添加
  *      apply from: 'maven.gradle'
  * 并在gradle.properties中配置下列参数
@@ -192,7 +192,9 @@ def defGenerateManifestTask = { dependsOnTaskName, variant ->
                 return Collections.enumeration(new TreeSet<Object>(super.keySet()));
             }
         };
-        properties.load(new FileInputStream(writeManifestPropertiesTask.getPropertiesFile()))
+        FileInputStream inputStream = new FileInputStream(writeManifestPropertiesTask.getPropertiesFile())
+        properties.load(inputStream)
+        inputStream.close()
         properties.put("X-Android-PackageName", configuration.applicationId + "")
         properties.put("X-Android-VersionName", configuration.getVersionName() + "")
         properties.put("X-Android-VersionCode", configuration.getVersionCode() + "")
@@ -211,19 +213,21 @@ def defGenerateManifestTask = { dependsOnTaskName, variant ->
 
         if (outputFile.exists()) {
             Properties oldProp = new Properties();
-            oldProp.load(new FileInputStream(outputFile))
+            FileInputStream fileInputStream = new FileInputStream(outputFile)
+            oldProp.load(fileInputStream)
             oldProp.remove("Build-Date");
             final buildDate = properties.remove("Build-Date");
             if (!oldProp.equals(properties)) {
                 properties.put("Build-Date", buildDate)
             }
+            fileInputStream.close()
         } else {
             if (!outputFile.getParentFile().exists())
                 outputFile.getParentFile().mkdirs()
             outputFile.createNewFile()
         }
 
-        if (properties.containsKey("Build-Date"))
+        if (properties.containsKey("Build-Date")) {
             try {
                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile))
                 properties.store(bufferedWriter, "\nAutomatic generated.\n\n@author ZhangZhenli\n")
@@ -232,10 +236,13 @@ def defGenerateManifestTask = { dependsOnTaskName, variant ->
             } catch (IOException e) {
                 throw e
             }
+        }
+
     }
 
     generateManifestTask.dependsOn writeManifestPropertiesTask
     processJavaRes.dependsOn generateManifestTask
+    project.tasks.findByName("generate${variant.name.capitalize()}Resources").dependsOn generateManifestTask
 }
 
 /**
